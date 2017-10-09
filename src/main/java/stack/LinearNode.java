@@ -9,24 +9,24 @@ public class LinearNode<T> {
     element = null;
   }
 
-  public LinearNode(T elem) {
+  public LinearNode(final T elem) {
     next = null;
     element = elem;
   }
 
-  public LinearNode<T> getNext() {
+  public final LinearNode<T> getNext() {
     return next;
   }
-  
-  public void setNext(LinearNode<T> node) {
+
+  public final void setNext(final LinearNode<T> node) {
     next = node;
   }
-  
-  public T getElement() {
+
+  public final T getElement() {
     return element;
   }
 
-  public void setElement(T elem) {
+  public final void setElement(final T elem) {
     element = elem;
   }
 }

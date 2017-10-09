@@ -21,8 +21,8 @@ public class LinkedStack<T> implements StackInterface<T> {
    * {@inheritDoc}.
    */
   @Override
-  public T pop() throws StackUnderflowException {
-    if (count == 0){
+  public final T pop() throws StackUnderflowException {
+    if (count == 0) {
       throw new StackUnderflowException();
     }
     T elem = top.getElement();
@@ -35,8 +35,8 @@ public class LinkedStack<T> implements StackInterface<T> {
    * {@inheritDoc}.
    */
   @Override
-  public T top() throws StackUnderflowException {
-    if (count == 0){
+  public final T top() throws StackUnderflowException {
+    if (count == 0) {
       throw new StackUnderflowException();
     }
     return top.getElement();
@@ -46,19 +46,18 @@ public class LinkedStack<T> implements StackInterface<T> {
    * {@inheritDoc}.
    */
   @Override
-  public boolean isEmpty() {
+  public final boolean isEmpty() {
     if (count == 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
    * {@inheritDoc}.
    */
   @Override
-  public int size() {
+  public final int size() {
     return count;
   }
 
@@ -66,7 +65,7 @@ public class LinkedStack<T> implements StackInterface<T> {
    * {@inheritDoc}.
    */
   @Override
-  public void push(T elem) {
+  public final void push(final T elem) {
     LinearNode<T> node = new LinearNode<T>(elem);
     node.setNext(top);
     top = node;
