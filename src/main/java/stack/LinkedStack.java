@@ -22,6 +22,9 @@ public class LinkedStack<T> implements StackInterface<T> {
    */
   @Override
   public T pop() throws StackUnderflowException {
+    if (count == 0){
+      throw new StackUnderflowException();
+    }
     T elem = top.getElement();
     top = top.getNext();
     count--;
@@ -33,6 +36,9 @@ public class LinkedStack<T> implements StackInterface<T> {
    */
   @Override
   public T top() throws StackUnderflowException {
+    if (count == 0){
+      throw new StackUnderflowException();
+    }
     return top.getElement();
   }
 
@@ -41,7 +47,7 @@ public class LinkedStack<T> implements StackInterface<T> {
    */
   @Override
   public boolean isEmpty() {
-    if (top == null) {
+    if (count == 0) {
       return true;
     } else {
       return false;
