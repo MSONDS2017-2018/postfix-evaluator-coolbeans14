@@ -9,29 +9,14 @@ import language.Operator;
  *
  */
 public class NegateOperator implements Operator<Integer> {
-
-  //TODO Have you taken a look at the PlusOperator yet?
-  //You will notice that it extends the abstract class BinaryOperator
-  // You should take a moment and review that class before trying to
-  // implement this one. Although it is not required, 
-  // it might be a good idea to first write
-  // an abstract class called UnaryOperator that abstracts out
-  // all the bits for UnaryOperators.
-
+  private Operand<Integer> op;
 
   /**
    * {@inheritDoc}
    */
   @Override
   public int getNumberOfArguments() {
-    //TODO Have you taken a look at the PlusOperator yet?
-    //You will notice that it extends the abstract class BinaryOperator
-    // You should take a moment and review that class before trying to
-    // implement this one. Although it is not required, 
-    // it might be a good idea to first write
-    // an abstract class called UnaryOperator that abstracts out
-    // all the bits for UnaryOperators.
-    return 0;
+    return 1;
   }
 
   /**
@@ -39,14 +24,11 @@ public class NegateOperator implements Operator<Integer> {
    */
   @Override
   public Operand<Integer> performOperation() {
-    //TODO Have you taken a look at the PlusOperator yet?
-    //You will notice that it extends the abstract class BinaryOperator
-    // You should take a moment and review that class before trying to
-    // implement this one. Although it is not required, 
-    // it might be a good idea to first write
-    // an abstract class called UnaryOperator that abstracts out
-    // all the bits for UnaryOperators.
-    return null;
+    if (op == null) {
+      throw new IllegalStateException("Could not perform operation prior to operands being set.");
+    }
+    Operand<Integer> result = new Operand<Integer>(op.getValue() * -1);
+    return result;
   }
 
   /**
@@ -54,18 +36,26 @@ public class NegateOperator implements Operator<Integer> {
    */
   @Override
   public void setOperand(int i, Operand<Integer> operand) {
-    //TODO Have you taken a look at the PlusOperator yet?
-    //You will notice that it extends the abstract class BinaryOperator
-    // You should take a moment and review that class before trying to
-    // implement this one. Although it is not required, 
-    // it might be a good idea to first write
-    // an abstract class called UnaryOperator that abstracts out
-    // all the bits for UnaryOperators.
-
-    //TODO Negation on an integer is simply flipping its sign
-    //So the negation of some int value i is -i.
-
+    if (operand == null) {
+      throw new NullPointerException("Could not set null operand.");
+    }
+    if (i > 0) {
+      throw new IllegalArgumentException("This operator only accepts operand 0 "
+                                          + "but recieved " + i + ".");
+    }
+    if (i == 0) {
+      if (op != null) {
+        throw new IllegalStateException("Position " + i + " has been previously set.");
+      }
+      op = operand;
+    }
   }
-
+  
+  /**
+   * {@inheritDoc}
+   */
+  public Operand<Integer> getOp(){
+    return op;
+  }
 
 }
