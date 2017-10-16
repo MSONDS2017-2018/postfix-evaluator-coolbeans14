@@ -56,7 +56,7 @@ public class NegateOperator implements Operator<Integer> {
   /**
    * {@inheritDoc}
    */
-  public final Operand<Integer> getOp(){
+  public final Operand<Integer> getOp() {
     return op;
   }
 

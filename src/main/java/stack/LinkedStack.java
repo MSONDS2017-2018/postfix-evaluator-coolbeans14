@@ -12,6 +12,9 @@ public class LinkedStack<T> implements StackInterface<T> {
   private int count;
   private LinearNode<T> top;
 
+  /**
+   * Create a LinkedStack.
+   */
   public LinkedStack() {
     count = 0;
     top = null;
