@@ -27,11 +27,11 @@ public class ArithPostFixEvaluator implements PostFixEvaluator<Integer> {
 
   /**
    * Evaluates a postfix expression.
-   * 
+   *
    * @return the result
    */
   @Override
-  public Integer evaluate(String expr) {
+  public final Integer evaluate(final String expr) {
     ArithPostFixParser parser = new ArithPostFixParser(expr);
     while (parser.hasNext()) {
       switch (parser.nextType()) {

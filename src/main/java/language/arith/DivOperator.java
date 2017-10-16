@@ -16,18 +16,19 @@ public class DivOperator extends BinaryOperator<Integer> {
    * {@inheritDoc}.
    */
   @Override
-  public Operand<Integer> performOperation() {
+  public final Operand<Integer> performOperation() {
     Operand<Integer> op0 = this.getOp0();
     Operand<Integer> op1 = this.getOp1();
     if (op0 == null || op1 == null) {
-      throw new IllegalStateException("Could not perform operation prior to operands being set.");
+      throw new IllegalStateException("Could not perform operation"
+          + " prior to operands being set.");
     }
     Integer result = op0.getValue() / op1.getValue();
     return new Operand<Integer>(result);
   }
   
   @Override
-  public void setOperand(int i, Operand<Integer> operand) {
+  public final void setOperand(final int i, final Operand<Integer> operand) {
     if (i == 1 && operand.getValue() == 0) {
       throw new IllegalStateException("Cannot set 0 as the divisor.");
     }

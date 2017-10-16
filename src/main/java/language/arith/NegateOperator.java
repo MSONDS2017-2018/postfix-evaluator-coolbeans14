@@ -4,7 +4,7 @@ import language.Operand;
 import language.Operator;
 
 /**
- * The {@code NegateOperator} is an operator that performs negation on a single integer
+ * The {@code NegateOperator} is an operator that performs negation on a single integer.
  * @author jcollard, jddevaug
  *
  */
@@ -15,7 +15,7 @@ public class NegateOperator implements Operator<Integer> {
    * {@inheritDoc}
    */
   @Override
-  public int getNumberOfArguments() {
+  public final int getNumberOfArguments() {
     return 1;
   }
 
@@ -23,9 +23,10 @@ public class NegateOperator implements Operator<Integer> {
    * {@inheritDoc}
    */
   @Override
-  public Operand<Integer> performOperation() {
+  public final Operand<Integer> performOperation() {
     if (op == null) {
-      throw new IllegalStateException("Could not perform operation prior to operands being set.");
+      throw new IllegalStateException("Could not perform operation"
+          + " prior to operands being set.");
     }
     Operand<Integer> result = new Operand<Integer>(op.getValue() * -1);
     return result;
@@ -35,7 +36,7 @@ public class NegateOperator implements Operator<Integer> {
    * {@inheritDoc}
    */
   @Override
-  public void setOperand(int i, Operand<Integer> operand) {
+  public final void setOperand(final int i, final Operand<Integer> operand) {
     if (operand == null) {
       throw new NullPointerException("Could not set null operand.");
     }
@@ -45,16 +46,17 @@ public class NegateOperator implements Operator<Integer> {
     }
     if (i == 0) {
       if (op != null) {
-        throw new IllegalStateException("Position " + i + " has been previously set.");
+        throw new IllegalStateException("Position " + i
+            + " has been previously set.");
       }
       op = operand;
     }
   }
-  
+
   /**
    * {@inheritDoc}
    */
-  public Operand<Integer> getOp(){
+  public final Operand<Integer> getOp(){
     return op;
   }
 
