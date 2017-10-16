@@ -69,6 +69,7 @@ public class LinkedStack<T> implements StackInterface<T> {
     LinearNode<T> node = new LinearNode<T>(elem);
     node.setNext(top);
     top = node;
+    count++;
   }
 
 }

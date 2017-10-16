@@ -1,13 +1,17 @@
 package evaluator.arith;
 
+import evaluator.IllegalPostFixExpressionException;
 import evaluator.PostFixEvaluator;
 import language.Operand;
+import language.Operator;
 import parser.arith.ArithPostFixParser;
 import stack.StackInterface;
-
+import stack.LinkedStack;
+import stack.StackUnderflowException;
 
 /**
- * An {@link ArithPostFixEvaluator} is a post fix evaluator over simple arithmetic expressions.
+ * An {@link ArithPostFixEvaluator} is a post fix evaluator over simple
+ * arithmetic expressions.
  *
  */
 public class ArithPostFixEvaluator implements PostFixEvaluator<Integer> {
@@ -18,34 +22,52 @@ public class ArithPostFixEvaluator implements PostFixEvaluator<Integer> {
    * Constructs an {@link ArithPostFixEvaluator}.
    */
   public ArithPostFixEvaluator() {
-    this.stack = null; //TODO Initialize to your LinkedStack
+    this.stack = new LinkedStack<Operand<Integer>>();
   }
 
   /**
    * Evaluates a postfix expression.
-   * @return the result 
+   * 
+   * @return the result
    */
   @Override
   public Integer evaluate(String expr) {
-    // TODO Use all of the things they've built so far to 
-    // create the algorithm to do post fix evaluation
-
     ArithPostFixParser parser = new ArithPostFixParser(expr);
     while (parser.hasNext()) {
-      switch (parser.nextType()) { 
-        case OPERAND:
-          //TODO What do we do when we see an operand?
-          break;
-        case OPERATOR:
-          //TODO What do we do when we see an operator?
-          break;
-        default:
-          //TODO If we get here, something went terribly wrong
+      switch (parser.nextType()) {
+      case OPERAND:
+        stack.push(parser.nextOperand());
+        break;
+      case OPERATOR:
+        try {
+          Operand<Integer> operand1 = stack.pop();
+          Operator<Integer> operator = parser.nextOperator();
+          if (operator.getNumberOfArguments() == 2) {
+            Operand<Integer> operand0 = stack.pop();
+            operator.setOperand(0, operand0);
+            operator.setOperand(1, operand1);
+          } else {
+            operator.setOperand(0, operand1);
+          }
+          Operand<Integer> result = operator.performOperation();
+          stack.push(result);
+        } catch (StackUnderflowException ex) {
+          throw new IllegalPostFixExpressionException();
+        }
+        break;
+      default:
+        // TODO If we get here, something went terribly wrong
       }
     }
-
-    //TODO What do we return?
-    return null;
+    if (stack.size() == 1) {
+      return stack.pop().getValue();
+    } else {
+      // Empty the stack
+      while (!stack.isEmpty()) {
+        stack.pop();
+      }
+      throw new IllegalPostFixExpressionException();
+    }
   }
 
 }
